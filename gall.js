@@ -8,45 +8,21 @@ function showSlides() {
     slides[i].style.display = "none";
   }
   slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 2000); 
+  if (slideIndex > slides.length) { slideIndex = 1 }
+  slides[slideIndex - 1].style.display = "block";
+  setTimeout(showSlides, 2000);
 }
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-   navigator.serviceWorker.register('../sw.js',{scope:"/index.html"}).then( () => {
-    console.log('Service Worker Registered')
-   })
- })
-} */
-
-function showNotification() {
-  const notification = new Notification("New message", {
-    body: "Welcome to cat lovers club!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-
+    navigator.serviceWorker.register('../sw.js');
   });
 }
 
-function showNotificationOffline() {
-  const notification = new Notification("New message", {
-    body: "You are offline!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-  });
+window.addEventListener('offline', handleConnection);
+
+function handleConnection() {
+  if (!navigator.onLine) {
+    alert("You are offline!");
+  }
 }
-
-function showNotificationOnline() {
-  const notification = new Notification("New message", {
-    body: "You are back online!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-  });
-}
-
-window.addEventListener("offline", showNotificationOffline);
-window.addEventListener("online", showNotificationOnline);
-
-// console.log(Notification.permission);
-// if (Notification.permission === "granted") {
-//   showNotification();
-// }

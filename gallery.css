@@ -1,4 +1,4 @@
-/* The grid: Four equal columns that floats next to each other */
+
 body {
     background-color: rgb(0, 0, 0);
     color: white;
@@ -35,7 +35,7 @@ body {
     padding: 10px;
   }
   
-  /* Style the images inside the grid */
+
   .column img {
     opacity: 0.8;
     cursor: pointer;
@@ -45,14 +45,14 @@ body {
     opacity: 1;
   }
   
-  /* Clear floats after the columns */
+
   .row:after {
     content: "";
     display: table;
     clear: both;
   }
   
-  /* The expanding image container (positioning is needed to position the close button and the text) */
+
   .container {
     position: relative;
     display: none;
@@ -60,7 +60,7 @@ body {
   
 
   
-  /* Closable button inside the image */
+
   .closebtn {
     position: absolute;
     top: 10px;

@@ -53,135 +53,20 @@ var quotes = [{ "author": "catLover", "fact": "The oldest known pet cat existed 
 
 
 
-/*const VAPID_KEY = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo'
-const BACK_URL=''
-const urlBase64ToUint8Array = (base64String) => {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, "+")
-    .replace(/_/g, "/");
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../sw.js');
+  });
+}
 
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
+window.addEventListener('offline', handleConnection);
 
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
+function handleConnection() {
+  if (!navigator.onLine) {
+    alert("You are offline!");
   }
-  return outputArray;
 }
 
 
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("sw.js", { scope: "." })
-    .then((register) => {
-      console.log("service worker registered");
-      if ("Notification" in window) {
-        Notification.requestPermission((result) => {
-          if (result === "granted") {
-            console.log("Acess granted! :)");
-            register.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: urlBase64ToUint8Array(VAPID_KEY)
-            }).then(subscription => {
-              fetch(BACK_URL+'/subscribe', {
-                method: "POST",
-                body: JSON.stringify(subscription),
-                headers: {
-                  "content-type": "application/json"
-                }
-              });
-            });
 
-          
-          } else if (result === "denied") {
-            console.log("Access denied :(");
-          } else {
-            console.log("Request ignored :/");
-          }
-        });
-      }
-    })
-    .catch((err) => console.log("service worker not registered", err));
-}*/
-
-// const check = () => {
-//   if (!('serviceWorker' in navigator)) {
-//     throw new Error('No Service Worker support!')
-//   }
-//   if (!('PushManager' in window)) {
-//     throw new Error('No Push API Support!')
-//   }
-// }
-
-
-// // I added a function that can be used to register a service worker.
-// const registerServiceWorker = async () => {
-//   const swRegistration = await navigator.serviceWorker.register('sw.js'); //notice the file name
-//   return swRegistration;
-// }
-// const requestNotificationPermission = async () => {
-//   const permission = await window.Notification.requestPermission();
-//   // value of permission can be 'granted', 'default', 'denied'
-//   // granted: user has accepted the request
-//   // default: user has dismissed the notification permission popup by clicking on x
-//   // denied: user has denied the request.
-//   if(permission !== 'granted'){
-//       throw new Error('Permission not granted for Notification');
-//   }
-// }
-// const showLocalNotification = (title, body, swRegistration) => {
-//   const options = {
-//       body,
-//       // here you can add more properties like icon, image, vibrate, etc.
-//   };
-//   swRegistration.showNotification(title, options);
-// }
-// const main = async () => {
-//   check();
-//   const swRegistration = await registerServiceWorker();
-//   const permission =  await requestNotificationPermission();
-//   showLocalNotification('Welcome', 'to cat fun club', swRegistration);
-// }
-// main();
-
-/*window.addEventListener("offline", function(){
-  showLocalNotification('Error!',"You are offline",);
-});
-
-window.addEventListener("online", function(){
-  showLocalNotification('Success!','You are back online!',);
-});*/
-
-
-
-function showNotification() {
-  const notification = new Notification("New message", {
-    body: "Welcome to cat lovers club!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-
-  });
-}
-
-function showNotificationOffline() {
-  const notification = new Notification("New message", {
-    body: "You are offline!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-  });
-}
-
-function showNotificationOnline() {
-  const notification = new Notification("New message", {
-    body: "You are back online!",
-    //icon: "../img/favicon-32x32-dunplab-manifest-33102.png"
-  });
-}
-
-window.addEventListener("offline", showNotificationOffline);
-window.addEventListener("online", showNotificationOnline);
-
-// console.log(Notification.permission);
-// if (Notification.permission === "granted") {
-//   showNotification();
-// }
