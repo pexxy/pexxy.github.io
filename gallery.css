@@ -1,0 +1,71 @@
+/* The grid: Four equal columns that floats next to each other */
+body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding-top: 50px;
+    font-size: 18px;
+    font-family: 'Roboto Slab', serif;
+  }
+  
+  h1 {
+    font-size: 4em;
+    line-height: 70px;
+    margin-bottom: 40px;
+    font-weight: bold;
+  }
+
+  .btn {
+    border-radius: 10px;
+    color: yellow;
+    border: 1px solid white !important;
+    transition: background 0.8s, color 0.8s;
+    line-height: 30px;
+    margin-top: 30px;
+  }
+  
+  .btn:hover, .btn:active, .btn:focus {
+    color: white !important;
+    background-color: yellow !important;
+    box-shadow: none;
+  }
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+  }
+  
+  /* Style the images inside the grid */
+  .column img {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  .column img:hover {
+    opacity: 1;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* The expanding image container (positioning is needed to position the close button and the text) */
+  .container {
+    position: relative;
+    display: none;
+  }
+  
+
+  
+  /* Closable button inside the image */
+  .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+  }
